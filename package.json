@@ -1,0 +1,19 @@
+{
+  "name": "jgbc",
+  "version": "0.0.0",
+  "description": "Jahnel Group Beer Club Ratings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmichaelshirk/jgbc.git"
+  },
+  "author": "Michael Shirk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wmichaelshirk/jgbc/issues"
+  },
+  "homepage": "https://github.com/wmichaelshirk/jgbc#readme"
+}
