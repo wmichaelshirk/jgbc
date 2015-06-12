@@ -1,11 +1,11 @@
 {
-  "name": "jgbc",
+  "name": "beerClub",
   "version": "0.1.0",
-  "description": "Jahnel Group Beer Club Ratings",
+  "description": "Beer Club Ratings",
   "main": "index.js",
   "scripts": {
     "clean": "rm -r dist/*",
-    "build:css": "lessc app/styles/styles.less > dist/css/styles.css",
+    "build:css": "lessc assets/styles/styles.less > dist/css/styles.css",
     "serve": "python -m SimpleHTTPServer 8080"
   },
   "repository": {
