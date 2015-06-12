@@ -1,10 +1,11 @@
 {
   "name": "jgbc",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Jahnel Group Beer Club Ratings",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -r dist/*",
+    "serve": "python -m SimpleHTTPServer 8080"
   },
   "repository": {
     "type": "git",
@@ -15,10 +16,5 @@
   "bugs": {
     "url": "https://github.com/wmichaelshirk/jgbc/issues"
   },
-  "homepage": "https://github.com/wmichaelshirk/jgbc#readme",
-  "scripts": {
-    "clean": "rm -r dist/*",
-    "serve": "python -m SimpleHTTPServer 8080"
-
-  }
+  "homepage": "https://github.com/wmichaelshirk/jgbc#readme"
 }
