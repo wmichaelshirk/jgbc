@@ -2,11 +2,11 @@
   "name": "beerClub",
   "version": "0.1.0",
   "description": "Beer Club Ratings",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "clean": "rm -r dist/*",
     "build:css": "lessc assets/styles/styles.less > dist/css/styles.css",
-    "serve": "python -m SimpleHTTPServer 8080"
+    "serve": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/wmichaelshirk/jgbc/issues"
   },
-  "homepage": "https://github.com/wmichaelshirk/jgbc#readme"
+  "homepage": "https://github.com/wmichaelshirk/jgbc#readme",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "googleapis": "^2.0.5"
+  },
+  "devDependencies": {
+    "less": "^2.5.1"
+  }
 }

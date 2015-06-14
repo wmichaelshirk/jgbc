@@ -1,1 +1,1 @@
-angular.module('beerClub', []);
+angular.module('beerClub', ['ngResource']);

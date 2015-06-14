@@ -1,0 +1,103 @@
+<!doctype html>
+<html ng-app="beerClub">
+<head>
+  <meta charset="utf-8">
+  <title>Beer Club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="604204486967-jiqfjjk5ar31ae1mehjq9eaa1nptlllk.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-resource.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="g-signin2 btn btn-block" data-onsuccess="onSignIn"></div>
+  <div class="roundPhoto pull-right" id="myPhoto"></div>
+
+  <a href="#" onclick="signOut();">Sign out</a>
+
+  <beer-directive></beer-directive>
+  <rating-directive></rating-directive>
+
+
+  <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      document.getElementById('myPhoto').style.backgroundImage = 'url('+profile.getImageUrl() +  ')'
+      console.log('Email: ' + profile.getEmail());
+      // The ID token you need to pass to your backend:
+       var id_token = googleUser.getAuthResponse().id_token;
+
+       // log in to server
+       //var myHeaders = new Headers();
+       /*var myInit = { method : 'POST',
+                      headers: 'myHeaders',
+                      mode:    'cors',
+                      cache:   'default'};*/
+       var body = 'idtoken=' + id_token;
+
+       var json = function (response) {
+         return response.json();
+       };
+       fetch('/login', {
+           method: 'post',
+           headers: {
+             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+           },
+           body: body
+         })
+         .then(json)
+         .then(function (data) {
+           window.myUserId = data.id;
+           console.log('Request succeeded with JSON response', data);
+         })
+         .catch(function (error) {
+           console.log('Request failed', error);
+         });
+       /*
+       var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+          console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
+        */
+    };
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+      body = 'id=' + window.myUserId;
+      fetch('/logout', {
+          method: 'post',
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+          },
+          body: body
+        })
+        .then(json)
+        .then(function (data) {
+          console.log('Request succeeded with JSON response', data);
+        })
+        .catch(function (error) {
+          console.log('Request failed', error);
+        });
+
+    }
+  </script>
+  <script src="app.module.js"></script>
+  <script src="user/rating/rating-directive.js"></script>
+  <script src="user/beer/beer-directive.js"></script>
+  <script src="user/beer/beer-service.js"></script>
+
+</body>
+</html>

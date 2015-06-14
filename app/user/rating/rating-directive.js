@@ -3,16 +3,8 @@ angular.module('beerClub')
   "use strict";
   return {
     restrict: 'AE',
-    scope: {},
-    controller: function() {
-      this.beerName = "Corona";
-      this.beerDescription = "A pale lager from Mexico.";
-    },
-    controllerAs: 'ctrl',
     template: `
       <section>
-        <h2>{{ ctrl.beerName }}</h2>
-        <p>{{ ctrl.beerDescription }}</p>
         <form>
           <label class="star"><input type="radio" name="stars" value="1">One star</label>
           <label class="star"><input type="radio" name="stars" value="2">Two stars</label>
