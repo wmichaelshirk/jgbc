@@ -10,10 +10,18 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
-
+<body ng-controller='dashboardCtrl as ctrl'>
+  <section>
   Who's signed in?
   <user-list></user-list>
+  </section>
+  <section>
+    <h2>Add a current Beer</h2>
+    <form ng-submit='ctrl.addBeer()'>
+      <label>Name: <input type='text' ng-model='ctrl.name' /></label>
+      <label>Description: <input type='text' ng-model='ctrl.description' ></label>
+      <button type='submit'>Submit</button>
+    </form>
 
   <script src="app.module.js"></script>
   <script src="user/rating/rating-directive.js"></script>

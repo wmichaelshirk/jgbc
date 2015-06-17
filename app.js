@@ -87,27 +87,31 @@ app.post('/logout', function(req, res) {
 app.get('/users', function (req, res, next) {
   User.find( function (err, users) {
     if (err) { return next(err); }
-    var filteredUsers = users.map( function(user) {
-      if (usersLoggedIn.indexOf(user._id) >= 0) {
-        return {id: usersLoggedIn.indexOf(user._id),
-                name: user.name,
-                photoUrl: user.photoUrl
-              };
+    var filteredUsers = users.reduce( function( memo, user) {
+      if (users.LoggedIn && users.LoggedIn.indexOf(user._id) >= 0) {
+        memo.push({
+          id: usersLoggedIn.indexOf(user._id),
+          name: user.name,
+          photoUrl: user.photoUrl
+        });
       }
-    });
+      return memo;
+    }, []);
     res.json(filteredUsers);
   });
 });
 
 app.get('/beer', function (req, res, next) {
-  Beer.find(function (err, beers) {
+  Beer.find().sort({"date": -1}).limit(1)
+  .exec(function (err, beer) {
     if (err) { return next(err); }
-    res.json(beers);
+    res.json(beer);
   });
 });
-app.post('/beer', function(req, res, next) {
+app.post('/beer', bodyParser.json(), function(req, res, next) {
+  console.log(req.body);
   var beer = new Beer(req.body);
-
+  console.log(beer);
   beer.save(function (err, beer) {
     if (err) { return next (err); }
     res.json(beer);
