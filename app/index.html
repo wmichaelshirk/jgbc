@@ -26,6 +26,9 @@
 
 
   <script>
+  var json = function (response) {
+    return response.json();
+  };
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -43,9 +46,7 @@
                       cache:   'default'};*/
        var body = 'idtoken=' + id_token;
 
-       var json = function (response) {
-         return response.json();
-       };
+
        fetch('/login', {
            method: 'post',
            headers: {
@@ -96,6 +97,7 @@
   </script>
   <script src="app.module.js"></script>
   <script src="user/rating/rating-directive.js"></script>
+  <script src="user/rating/rating-service.js"></script>
   <script src="user/beer/beer-directive.js"></script>
   <script src="user/beer/beer-service.js"></script>
 

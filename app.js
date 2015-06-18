@@ -61,8 +61,12 @@ app.post('/login', function(req, res) {
           if (usersLoggedIn.indexOf(user.id) < 0 ) {
             loginId = usersLoggedIn.length;
             usersLoggedIn[loginId] = user.id;
-          };
-          res.json({id: loginId});
+            console.log('logged in now')
+          } else {
+            console.log('alreadyloggedin');
+            loginId = usersLoggedIn.indexOf(user.id);
+          }
+            res.json({id: loginId});
         } else {
           res.status(400).send('The attempted token was invalid.');
         }
@@ -117,6 +121,18 @@ app.post('/beer', bodyParser.json(), function(req, res, next) {
     res.json(beer);
   });
 });
+
+app.post('/beer/votes', bodyParser.json(), function(req, res, next) {
+  var content = req.body;
+  content.user = usersLoggedIn[parseInt(content.user)]
+  var rating = new Rating(content);
+     rating.save(function (err, beer) {
+     if (err) { return next (err); }
+     res.json(rating);
+  });
+});
+
+
 /*
 User can:
 • Log in
