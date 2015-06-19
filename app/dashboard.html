@@ -29,6 +29,15 @@
   <script src="user/beer/beer-service.js"></script>
   <script src="admin/user/user-directive.js"></script>
   <script src="admin/user/user-service.js"></script>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:8080');
+    socket.on('connect', function(data) {
+      socket.emit('join', 'Hello World from client');
+    });
+    socket.on('messages', function(data) {
+      alert(data);
+    })
+  </script>
 </body>
 </html>

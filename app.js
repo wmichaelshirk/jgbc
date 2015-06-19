@@ -13,6 +13,8 @@ var mongoose   = require('mongoose');
 var bodyParser = require('body-parser');
 var express    = require('express');
 var app = express();
+var server     = require('http').createServer(app);
+var io         = require('socket.io')(server);
 
 mongoose.connect('mongodb://localhost/beer');
 var Beer = mongoose.model('Beer');
@@ -157,8 +159,16 @@ app.use(express.static('app'));
 app.use(express.static('dist'));
 app.use(express.static('assets'));
 
+io.on('connection', function(client) {
+  console.log('client connected...');
+  client.on('join', function(data) {
+    console.log(data);
+    client.emit('messages', 'Hello from server');
+  });
+});
 
-var server=app.listen(8080, function() {
+//var server=app.listen(8080, function() {
+server.listen(8080, function() {
   var host=server.address().address;
   var port=server.address().port;
 

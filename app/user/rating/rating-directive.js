@@ -5,6 +5,7 @@ angular.module('beerClub')
     restrict: 'AE',
     controller: function() {
       var self = this;
+      self.voted = false;
       self.vote = function() {
         var newVote = new Rating({
           user: window.myUserId,
@@ -12,11 +13,12 @@ angular.module('beerClub')
           beer: window.beerId
         });
         newVote.$save();
+        self.voted=true;
       };
     },
     controllerAs: 'ctrl',
     template: `
-      <section>
+      <section ng-hide='ctrl.voted'>
         <form ng-submit="ctrl.vote()">
           <label class="star">
             <input type="radio" name="stars" ng-model="ctrl.rating" value="1">
